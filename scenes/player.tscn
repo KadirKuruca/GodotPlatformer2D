@@ -97,3 +97,7 @@ sprite_frames = SubResource("SpriteFrames_phl2u")
 animation = &"run"
 frame = 5
 frame_progress = 0.149649
+
+[node name="CoyoteJumpTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
