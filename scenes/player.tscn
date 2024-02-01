@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://chweokfpucefn"]
+[gd_scene load_steps=14 format=3 uid="uid://chweokfpucefn"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_s3rv3"]
+[ext_resource type="Resource" uid="uid://bv6rxx75dib4e" path="res://DefaultMovementData.tres" id="2_f6bt8"]
 [ext_resource type="Texture2D" uid="uid://lcadk25wud16" path="res://assets/player/player.png" id="2_hnoeb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rg0qb"]
@@ -82,8 +83,9 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 floor_constant_speed = true
-floor_snap_length = 2.0
+floor_snap_length = 3.0
 script = ExtResource("1_s3rv3")
+movement_data = ExtResource("2_f6bt8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
