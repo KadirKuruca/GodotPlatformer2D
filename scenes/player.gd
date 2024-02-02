@@ -54,7 +54,7 @@ func handle_jump():
 			air_jump = false
 
 func handle_wall_jump():
-	if not is_on_wall(): return
+	if not is_on_wall_only(): return
 	var wall_normal = get_wall_normal()
 			
 	if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):
@@ -76,3 +76,6 @@ func apply_air_resistance(input_axis, delta):
 	if input_axis == 0 and not is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, movement_data.air_resistance * delta)
 	
+
+func _on_hazard_detector_area_entered(area):
+	queue_free()

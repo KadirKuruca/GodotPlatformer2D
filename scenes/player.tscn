@@ -1,11 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://chweokfpucefn"]
+[gd_scene load_steps=15 format=3 uid="uid://chweokfpucefn"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_s3rv3"]
 [ext_resource type="Resource" uid="uid://bv6rxx75dib4e" path="res://DefaultMovementData.tres" id="2_f6bt8"]
 [ext_resource type="Texture2D" uid="uid://lcadk25wud16" path="res://assets/player/player.png" id="2_hnoeb"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rg0qb"]
-size = Vector2(8.33333, 15.2917)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_il18b"]
 atlas = ExtResource("2_hnoeb")
@@ -81,7 +78,14 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rg0qb"]
+size = Vector2(8.33333, 15.625)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mosi8"]
+size = Vector2(8, 12.9678)
+
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
 floor_constant_speed = true
 floor_snap_length = 3.0
 script = ExtResource("1_s3rv3")
@@ -89,13 +93,6 @@ movement_data = ExtResource("2_f6bt8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(2.08165e-12, -32)
-scale = Vector2(1, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -7.66)
-scale = Vector2(0.96, 0.96)
-shape = SubResource("RectangleShape2D_rg0qb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -10)
@@ -104,6 +101,23 @@ animation = &"run"
 frame = 5
 frame_progress = 0.149649
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7.50001)
+scale = Vector2(0.954132, 0.928776)
+shape = SubResource("RectangleShape2D_rg0qb")
+
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="HazardDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardDetector"]
+position = Vector2(0, -7.51616)
+scale = Vector2(1, 1.00497)
+shape = SubResource("RectangleShape2D_mosi8")
+debug_color = Color(0.760784, 0.392157, 0.603922, 0.419608)
+
+[connection signal="area_entered" from="HazardDetector" to="." method="_on_hazard_detector_area_entered"]
