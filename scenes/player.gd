@@ -4,6 +4,8 @@ extends CharacterBody2D
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var coyote_jump_timer = $CoyoteJumpTimer
+@onready var starting_position = global_position
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var air_jump = false
 var just_wall_jumped = false
@@ -78,4 +80,4 @@ func apply_air_resistance(input_axis, delta):
 	
 
 func _on_hazard_detector_area_entered(area):
-	queue_free()
+	global_position = starting_position

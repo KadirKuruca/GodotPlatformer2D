@@ -92,7 +92,9 @@ script = ExtResource("1_s3rv3")
 movement_data = ExtResource("2_f6bt8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(2.08165e-12, -32)
+position = Vector2(1, -32)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -10)
