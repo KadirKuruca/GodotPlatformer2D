@@ -11,3 +11,4 @@ jump_velocity = -300.0
 gravity_scale = 1.0
 air_resistance = 200.0
 air_accelaration = 400.0
+air_jump_multiplier = 0.8
