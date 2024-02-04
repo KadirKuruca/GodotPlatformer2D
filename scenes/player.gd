@@ -59,7 +59,7 @@ func handle_wall_jump():
 	if not is_on_wall_only(): return
 	var wall_normal = get_wall_normal()
 			
-	if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):
+	if Input.is_action_just_pressed("ui_accept"):
 		velocity.x = wall_normal.x * movement_data.speed
 		velocity.y = movement_data.jump_velocity
 		just_wall_jumped = true
