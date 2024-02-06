@@ -4,11 +4,13 @@ extends CharacterBody2D
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var coyote_jump_timer = $CoyoteJumpTimer
+@onready var wall_jump_timer = $WallJumpTimer
 @onready var starting_position = global_position
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var air_jump = false
 var just_wall_jumped = false
+var wall_normal = Vector2.ZERO
 
 func _physics_process(delta):
 	apply_gravity(delta)
@@ -20,11 +22,17 @@ func _physics_process(delta):
 	apply_air_resistance(input_axis, delta)
 	update_animations(input_axis)
 	var was_on_floor = is_on_floor()
+	var was_on_wall = is_on_wall_only()
+	if was_on_wall:
+		wall_normal = get_wall_normal()
 	move_and_slide()
 	var just_left_ledge = was_on_floor and not is_on_floor() and velocity.y >= 0
 	if just_left_ledge:
 		coyote_jump_timer.start()
 	just_wall_jumped = false
+	var just_left_wall = was_on_wall and not is_on_wall()
+	if just_left_wall:
+		wall_jump_timer.start()
 		
 func handle_acceleration(input_axis, delta):
 	if input_axis != 0:
@@ -56,9 +64,8 @@ func handle_jump():
 			air_jump = false
 
 func handle_wall_jump():
-	if not is_on_wall_only(): return
-	var wall_normal = get_wall_normal()
-			
+	if not is_on_wall_only() and wall_jump_timer.time_left <= 0.0: return
+	
 	if Input.is_action_just_pressed("jump"):
 		velocity.x = wall_normal.x * movement_data.speed
 		velocity.y = movement_data.jump_velocity
