@@ -69,10 +69,7 @@ func handle_wall_jump():
 	if Input.is_action_just_pressed("jump"):
 		velocity.x = wall_normal.x * movement_data.speed
 		velocity.y = movement_data.jump_velocity
-		if velocity.x > 0:
-			animated_sprite_2d.flip_h = false
-		elif velocity.x < 0:
-			animated_sprite_2d.flip_h = true	
+		animated_sprite_2d.flip_h = (velocity.x < 0)
 		just_wall_jumped = true
 	
 func update_animations(input_axis):
