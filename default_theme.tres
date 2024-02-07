@@ -13,4 +13,4 @@ Button/styles/focus = ExtResource("2_7kmgc")
 Button/styles/hover = ExtResource("2_7kmgc")
 Button/styles/normal = ExtResource("1_vqur0")
 Button/styles/pressed = ExtResource("1_vqur0")
-Label/font_sizes/font_size = 10
+Label/font_sizes/font_size = 6
