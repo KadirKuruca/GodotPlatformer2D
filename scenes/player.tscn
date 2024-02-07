@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://chweokfpucefn"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_s3rv3"]
-[ext_resource type="Resource" path="res://DefaultMovementData.tres" id="2_f6bt8"]
+[ext_resource type="Resource" uid="uid://bv6rxx75dib4e" path="res://DefaultMovementData.tres" id="2_f6bt8"]
 [ext_resource type="Texture2D" uid="uid://lcadk25wud16" path="res://assets/player/player.png" id="2_hnoeb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_il18b"]
