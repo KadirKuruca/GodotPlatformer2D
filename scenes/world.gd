@@ -10,6 +10,7 @@ var start_level_msec = 0.0
 @onready var start_in_color_rect = %StartInColorRect
 @onready var animation_player = $AnimationPlayer
 @onready var level_time_label = %LevelTimeLabel
+@onready var victory_screen = $CanvasLayer/VictoryScreen
 
 func _ready():
 	Events.level_completed.connect(show_level_completed)
@@ -32,18 +33,26 @@ func retry_level():
 	get_tree().change_scene_to_file(scene_file_path)
 	
 func go_to_next_level():
-	if not next_level is PackedScene: return
 	await LevelTransition.fade_to_black()
 	get_tree().paused = false
 	get_tree().change_scene_to_packed(next_level)
 	
 func show_level_completed():
-	level_completed.show()
-	level_completed.retry_button.grab_focus()
-	get_tree().paused = true
+	if not next_level is PackedScene:
+		get_tree().paused = true
+		victory_screen.show()
+		victory_screen.menu_button.grab_focus()
+	else:
+		level_completed.show()
+		level_completed.retry_button.grab_focus()
+		get_tree().paused = true
 
 func _on_level_completed_next_level():
 	go_to_next_level()
 
 func _on_level_completed_retry():
 	retry_level()
+
+func _on_victory_screen_open_start_menu():
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/start_menu.tscn")
