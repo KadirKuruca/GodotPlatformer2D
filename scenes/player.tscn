@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://chweokfpucefn"]
+[gd_scene load_steps=17 format=3 uid="uid://chweokfpucefn"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_s3rv3"]
 [ext_resource type="Resource" uid="uid://bv6rxx75dib4e" path="res://DefaultMovementData.tres" id="2_f6bt8"]
 [ext_resource type="Texture2D" uid="uid://lcadk25wud16" path="res://assets/player/player.png" id="2_hnoeb"]
+[ext_resource type="AudioStream" uid="uid://boo342omasm6n" path="res://assets/sounds/jump_sound.mp3" id="4_6uu5w"]
+[ext_resource type="AudioStream" uid="uid://c6lldin37a884" path="res://assets/sounds/error_007.ogg" id="5_bxknl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_il18b"]
 atlas = ExtResource("2_hnoeb")
@@ -96,7 +98,7 @@ movement_data = ExtResource("2_f6bt8")
 position = Vector2(1, -32)
 process_callback = 0
 position_smoothing_enabled = true
-position_smoothing_speed = 10.0
+position_smoothing_speed = 8.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -10)
@@ -127,5 +129,12 @@ position = Vector2(0, -7.51616)
 scale = Vector2(1, 1.00497)
 shape = SubResource("RectangleShape2D_mosi8")
 debug_color = Color(0.760784, 0.392157, 0.603922, 0.419608)
+
+[node name="AudioJump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_6uu5w")
+
+[node name="AudioDead" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_bxknl")
+volume_db = -3.0
 
 [connection signal="area_entered" from="HazardDetector" to="." method="_on_hazard_detector_area_entered"]

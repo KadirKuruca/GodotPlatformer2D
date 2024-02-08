@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjfs0jrhxi8v7"]
+[gd_scene load_steps=3 format=3 uid="uid://cjfs0jrhxi8v7"]
 
 [ext_resource type="Script" path="res://scenes/level_completed.gd" id="1_lbwlt"]
+[ext_resource type="AudioStream" uid="uid://dw287arj6u755" path="res://assets/sounds/level_completed.mp3" id="2_2yhp3"]
 
 [node name="LevelCompleted" type="ColorRect"]
 process_mode = 3
@@ -42,5 +43,9 @@ custom_minimum_size = Vector2(64, 16)
 layout_mode = 2
 text = "Next Level"
 
+[node name="AudioLevelCompleted" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_2yhp3")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/NextLevelButton" to="." method="_on_next_level_button_pressed"]

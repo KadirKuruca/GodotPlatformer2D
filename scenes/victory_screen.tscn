@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://co04b3gepy8t8"]
+[gd_scene load_steps=3 format=3 uid="uid://co04b3gepy8t8"]
 
 [ext_resource type="Script" path="res://scenes/victory_screen.gd" id="1_toiwm"]
+[ext_resource type="AudioStream" uid="uid://dw287arj6u755" path="res://assets/sounds/level_completed.mp3" id="2_4s32g"]
 
 [node name="VictoryScreen" type="CenterContainer"]
 process_mode = 3
@@ -25,4 +26,8 @@ custom_minimum_size = Vector2(96, 16)
 layout_mode = 2
 text = "Return to Main Menu"
 
+[node name="AudioLevelCompleted" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_4s32g")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]

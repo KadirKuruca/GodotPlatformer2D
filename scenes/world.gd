@@ -11,9 +11,12 @@ var start_level_msec = 0.0
 @onready var animation_player = $AnimationPlayer
 @onready var level_time_label = %LevelTimeLabel
 @onready var victory_screen = $CanvasLayer/VictoryScreen
+@onready var audio_collect_coin = $AudioCollectCoin
+@onready var audio_game = $AudioGame
 
 func _ready():
 	Events.level_completed.connect(show_level_completed)
+	Events.coin_collected.connect(on_coin_collected)
 	get_tree().paused = true
 	start_in_color_rect.visible = true
 	LevelTransition.fade_from_black()
@@ -43,9 +46,9 @@ func show_level_completed():
 		victory_screen.show()
 		victory_screen.menu_button.grab_focus()
 	else:
+		get_tree().paused = true
 		level_completed.show()
 		level_completed.retry_button.grab_focus()
-		get_tree().paused = true
 
 func _on_level_completed_next_level():
 	go_to_next_level()
@@ -56,3 +59,6 @@ func _on_level_completed_retry():
 func _on_victory_screen_open_start_menu():
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/start_menu.tscn")
+	
+func on_coin_collected():
+	audio_collect_coin.play()

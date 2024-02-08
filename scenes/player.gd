@@ -6,6 +6,8 @@ extends CharacterBody2D
 @onready var coyote_jump_timer = $CoyoteJumpTimer
 @onready var wall_jump_timer = $WallJumpTimer
 @onready var starting_position = global_position
+@onready var audio_jump = $AudioJump
+@onready var audio_dead = $AudioDead
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var air_jump = false
@@ -54,22 +56,26 @@ func apply_gravity(delta):
 func handle_jump():
 	if is_on_floor(): air_jump = true
 	
-	if is_on_floor() or coyote_jump_timer.time_left > 0.0:
+	if is_on_floor():
 		if Input.is_action_just_pressed("jump"):
+			audio_jump.play()
 			velocity.y = movement_data.jump_velocity
 			coyote_jump_timer.stop()
 	elif not is_on_floor():
-		if Input.is_action_just_released("jump") and velocity.y < movement_data.jump_velocity / 2:
-			velocity.y = movement_data.jump_velocity / 2
-		
+		#if Input.is_action_just_released("jump") and velocity.y < movement_data.jump_velocity / 2:
+			#velocity.y = movement_data.jump_velocity / 2
+			#audio_jump.play()
+			#print("Coyote Jump")
 		if Input.is_action_just_pressed("jump") and air_jump and not just_wall_jumped:
 			velocity.y = movement_data.jump_velocity * movement_data.air_jump_multiplier
 			air_jump = false
+			audio_jump.play()
 
 func handle_wall_jump():
 	if not is_on_wall_only() and wall_jump_timer.time_left <= 0.0: return
 	
 	if Input.is_action_just_pressed("jump"):
+		audio_jump.play()
 		velocity.x = wall_normal.x * movement_data.speed
 		velocity.y = movement_data.jump_velocity
 		animated_sprite_2d.flip_h = (velocity.x < 0)
@@ -92,3 +98,4 @@ func apply_air_resistance(input_axis, delta):
 
 func _on_hazard_detector_area_entered(_area):
 	global_position = starting_position
+	audio_dead.play()

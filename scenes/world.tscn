@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://coylticr2wymf"]
+[gd_scene load_steps=11 format=3 uid="uid://coylticr2wymf"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_hr3b6"]
 [ext_resource type="PackedScene" uid="uid://chweokfpucefn" path="res://scenes/player.tscn" id="2_xusjn"]
 [ext_resource type="PackedScene" uid="uid://co04b3gepy8t8" path="res://scenes/victory_screen.tscn" id="4_ir2fx"]
 [ext_resource type="PackedScene" uid="uid://cjfs0jrhxi8v7" path="res://scenes/level_completed.tscn" id="5_3f55n"]
 [ext_resource type="PackedScene" uid="uid://dbeo0sy75ndo2" path="res://scenes/level_tile_map.tscn" id="6_2mc0r"]
+[ext_resource type="AudioStream" uid="uid://bilm41lqf4c2i" path="res://assets/sounds/collect_coin.mp3" id="7_etbld"]
+[ext_resource type="AudioStream" uid="uid://d0crhwyhfwthq" path="res://assets/music/Retro Beat.ogg" id="7_hdajv"]
 
 [sub_resource type="Animation" id="Animation_4g7vc"]
 length = 0.001
@@ -99,6 +101,14 @@ process_mode = 3
 libraries = {
 "": SubResource("AnimationLibrary_80vwo")
 }
+
+[node name="AudioCollectCoin" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_etbld")
+
+[node name="AudioGame" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("7_hdajv")
+autoplay = true
 
 [connection signal="next_level" from="CanvasLayer/LevelCompleted" to="." method="_on_level_completed_next_level"]
 [connection signal="retry" from="CanvasLayer/LevelCompleted" to="." method="_on_level_completed_retry"]
