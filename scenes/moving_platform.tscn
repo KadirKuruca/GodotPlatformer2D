@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://crlfiale5jp3c"]
+
+[ext_resource type="PackedScene" uid="uid://dbeo0sy75ndo2" path="res://scenes/level_tile_map.tscn" id="1_l7c52"]
+[ext_resource type="Script" path="res://scenes/moving_platform.gd" id="1_pxxe1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qm4tp"]
+size = Vector2(48, 17)
+
+[sub_resource type="Animation" id="Animation_xcggn"]
+resource_name = "move_loop"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(80, 2.08165e-12), Vector2(2.08165e-12, 2.08165e-12)]
+}
+
+[sub_resource type="Animation" id="Animation_5ssie"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ue0d3"]
+_data = {
+"RESET": SubResource("Animation_5ssie"),
+"move_loop": SubResource("Animation_xcggn")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mjml"]
+size = Vector2(48, 3)
+
+[node name="MovingPlatform" type="Node2D"]
+script = ExtResource("1_pxxe1")
+
+[node name="AnimatedPlatform" type="AnimatableBody2D" parent="."]
+position = Vector2(15, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedPlatform"]
+position = Vector2(24, -9)
+shape = SubResource("RectangleShape2D_qm4tp")
+
+[node name="LevelTileMap" parent="AnimatedPlatform" instance=ExtResource("1_l7c52")]
+layer_0/tile_data = PackedInt32Array(-65536, 1, 3, -65535, 65537, 3, -65534, 131073, 3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedPlatform"]
+libraries = {
+"": SubResource("AnimationLibrary_ue0d3")
+}
+autoplay = "move_loop"
+
+[node name="Area2D" type="Area2D" parent="AnimatedPlatform"]
+visible = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedPlatform/Area2D"]
+position = Vector2(24, -18.5)
+shape = SubResource("RectangleShape2D_1mjml")
